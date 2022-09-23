@@ -20,8 +20,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@Table(name = "tb_category")
-public class Category implements Serializable {
+@Table(name = "tb_product")
+public class Product implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -37,14 +37,30 @@ public class Category implements Serializable {
 	private String name;
 	
 	@Getter
+	@Setter
+	private String description;
+	
+	@Getter
+	@Setter
+	private Double price;
+	
+	@Getter
+	@Setter
+	private String imgUrl;
+	
+	@Getter
 	@Transient
-	private Set<Product> products = new HashSet<>();
+	private Set<Category> categories = new HashSet<>();
 
-	public Category(Long id, String name) {
+	public Product(Long id, String name, String description, Double price, String imgUrl) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.description = description;
+		this.price = price;
+		this.imgUrl = imgUrl;
 	}
+	
 	
 	
 	
