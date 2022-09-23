@@ -1,4 +1,4 @@
-package com.jarshope.course.api.controller;
+package com.jarshope.course.api.controllers;
 
 import java.util.List;
 
@@ -9,24 +9,24 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jarshope.course.domain.model.Order;
-import com.jarshope.course.domain.services.OrderService;
+import com.jarshope.course.domain.model.User;
+import com.jarshope.course.domain.services.UserService;
 
 @RestController
-@RequestMapping("/orders")
-public class OrderController {
+@RequestMapping("/users")
+public class UserController {
 	
 	@Autowired
-	private OrderService orderService;
+	private UserService userService;
 	@GetMapping
-	public ResponseEntity<List<Order>> findAll() {
-		List<Order> list = orderService.findAll();
+	public ResponseEntity<List<User>> findAll() {
+		List<User> list = userService.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 	
-	@GetMapping("/{OrderId}")
-	public ResponseEntity<Order> findById(@PathVariable Long OrderId) {
-		Order obj = orderService.findById(OrderId);
+	@GetMapping("/{userId}")
+	public ResponseEntity<User> findById(@PathVariable Long userId) {
+		User obj = userService.findById(userId);
 		return ResponseEntity.ok().body(obj); 
 			
 	}

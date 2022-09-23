@@ -1,6 +1,9 @@
-package com.jarshope.course.api.controller;
+package com.jarshope.course.api.controllers;
 
 import java.util.List;
+
+import com.jarshope.course.domain.model.Category;
+import com.jarshope.course.domain.services.CategoryService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -9,24 +12,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jarshope.course.domain.model.User;
-import com.jarshope.course.domain.services.UserService;
-
 @RestController
-@RequestMapping("/users")
-public class UserController {
+@RequestMapping("/categories")
+public class CategoryController {
 	
 	@Autowired
-	private UserService userService;
+	private CategoryService categoryService;
 	@GetMapping
-	public ResponseEntity<List<User>> findAll() {
-		List<User> list = userService.findAll();
+	public ResponseEntity<List<Category>> findAll() {
+		List<Category> list = categoryService.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 	
-	@GetMapping("/{userId}")
-	public ResponseEntity<User> findById(@PathVariable Long userId) {
-		User obj = userService.findById(userId);
+	@GetMapping("/{categoryId}")
+	public ResponseEntity<Category> findById(@PathVariable Long categoryId) {
+		Category obj = categoryService.findById(categoryId);
 		return ResponseEntity.ok().body(obj); 
 			
 	}
