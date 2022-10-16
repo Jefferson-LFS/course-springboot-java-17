@@ -6,6 +6,7 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jarshope.course.domain.model.pk.OrderItemPK;
 
 import lombok.EqualsAndHashCode;
@@ -23,7 +24,7 @@ public class OrderItem  implements Serializable {
 
 	@EmbeddedId
 	@EqualsAndHashCode.Include
-	private OrderItemPK id;
+	private OrderItemPK id = new OrderItemPK();
 	
 	@Getter
 	@Setter
@@ -42,7 +43,7 @@ public class OrderItem  implements Serializable {
 		this.price = price;
 	}
 	
-	
+	@JsonIgnore
 	public Order getOrder() {
 		return id.getOrder();
 	}
