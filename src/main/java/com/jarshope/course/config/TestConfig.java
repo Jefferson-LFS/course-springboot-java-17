@@ -6,6 +6,7 @@ import java.util.Arrays;
 import com.jarshope.course.domain.model.Category;
 import com.jarshope.course.domain.model.Order;
 import com.jarshope.course.domain.model.OrderItem;
+import com.jarshope.course.domain.model.Payment;
 import com.jarshope.course.domain.model.Product;
 import com.jarshope.course.domain.model.User;
 import com.jarshope.course.domain.model.enums.OrderStatus;
@@ -70,7 +71,7 @@ public class TestConfig implements CommandLineRunner {
 		User u2 = new User(null, "Alex Green", "alex@gmail.com", "977777777", "123456");
 		
 		Order o1 = new Order(null, Instant.now(),OrderStatus.SHIPPED , u1);
-		Order o2 = new Order(null, Instant.now(),OrderStatus.PAID, u2);
+		Order o2 = new Order(null, Instant.parse("2022-11-09T15:24:07Z"),OrderStatus.PAID, u2);
 		Order o3 = new Order(null, Instant.now(),OrderStatus.CANCELED, u1);
 		
 		
@@ -83,6 +84,11 @@ public class TestConfig implements CommandLineRunner {
 		OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
 		
 		orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
+		
+		Payment pay1 = new Payment(null, Instant.parse("2022-11-09T17:24:07Z"), o2);
+		o2.setPayment(pay1);
+		
+		orderRepository.save(o2);
 	}
 	
 	
