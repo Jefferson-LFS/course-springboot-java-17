@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.jarshope.course.domain.excepitons.ResourceNotFoundException;
 import com.jarshope.course.domain.model.User;
 import com.jarshope.course.domain.repositories.UserRepository;
 
@@ -21,7 +22,7 @@ public class UserService {
 	
 	public User findById(Long userId) {
 		Optional<User> obj = userRepository.findById(userId);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(userId));
 	}
 	
 	public User update(Long userId, User user) {
