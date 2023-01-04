@@ -3,15 +3,17 @@ package com.jarshope.course.domain.services;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.stereotype.Service;
+import javax.persistence.EntityNotFoundException;
 
 import com.jarshope.course.domain.excepitons.DatabaseException;
 import com.jarshope.course.domain.excepitons.ResourceNotFoundException;
 import com.jarshope.course.domain.model.User;
 import com.jarshope.course.domain.repositories.UserRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.stereotype.Service;
 
 
 @Service
@@ -29,9 +31,13 @@ public class UserService {
 	}
 	
 	public User update(Long userId, User user) {
-		User entity = userRepository.getReferenceById(userId);
-		updateData(entity, user);
-		return userRepository.save(entity);
+		try {
+			User entity = userRepository.getReferenceById(userId);
+			updateData(entity, user);
+			return userRepository.save(entity);
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException(userId);
+		}
 	}
 	private void updateData(User entity, User user) {
 		entity.setName(user.getName());
